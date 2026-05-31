@@ -1,0 +1,11 @@
+[package]
+name = "lau-contact-geometry"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Contact geometry: contact forms, Reeb dynamics, contactomorphisms, Legendrian submanifolds, and thermodynamic contact structures"
+repository = "https://github.com/SuperInstance/lau-contact-geometry"
+
+[dependencies]
+nalgebra = { version = "0.33", features = ["serde-serialize"] }
+serde = { version = "1", features = ["derive"] }
