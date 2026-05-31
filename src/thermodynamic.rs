@@ -117,7 +117,7 @@ impl ThermodynamicContactStructure {
     /// The Legendrian is parametrized by (U, V) → (U, S(U,V), V, ∂S/∂U, ∂S/∂V)
     pub fn entropy_representation(&self, u: f64, v: f64, s_fn: fn(f64, f64) -> f64, ds_du: fn(f64, f64) -> f64, ds_dv: fn(f64, f64) -> f64) -> DVector<f64> {
         let s = s_fn(u, v);
-        let t = ds_du(u, v);  // T = ∂S/∂U = 1/T... wait
+        let _t = ds_du(u, v);  // T = ∂S/∂U = 1/T... wait
         // Actually: 1/T = ∂S/∂U, so T = 1/(∂S/∂U)
         // And P/T = ∂S/∂V, so P = T · ∂S/∂V
         let t_inv = ds_du(u, v);

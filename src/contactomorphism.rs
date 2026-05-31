@@ -21,7 +21,7 @@ pub struct Contactomorphism {
 impl Contactomorphism {
     /// Create an identity contactomorphism.
     pub fn identity(dim: usize) -> Result<Self, String> {
-        if dim < 3 || dim % 2 == 0 {
+        if dim < 3 || dim.is_multiple_of(2) {
             return Err(format!("Invalid dimension: {}", dim));
         }
         Ok(Self {
@@ -35,7 +35,7 @@ impl Contactomorphism {
     /// Create a strict contactomorphism from a Jacobian matrix.
     pub fn strict_from_jacobian(jacobian: DMatrix<f64>) -> Result<Self, String> {
         let dim = jacobian.nrows();
-        if dim != jacobian.ncols() || dim < 3 || dim % 2 == 0 {
+        if dim != jacobian.ncols() || dim < 3 || dim.is_multiple_of(2) {
             return Err("Jacobian must be square with odd dimension ≥ 3".into());
         }
         Ok(Self {
@@ -49,7 +49,7 @@ impl Contactomorphism {
     /// Create a conformal contactomorphism with a given factor.
     pub fn conformal(jacobian: DMatrix<f64>, factor: f64) -> Result<Self, String> {
         let dim = jacobian.nrows();
-        if dim != jacobian.ncols() || dim < 3 || dim % 2 == 0 {
+        if dim != jacobian.ncols() || dim < 3 || dim.is_multiple_of(2) {
             return Err("Jacobian must be square with odd dimension ≥ 3".into());
         }
         Ok(Self {
@@ -86,7 +86,7 @@ impl Contactomorphism {
         if !self.strict {
             // Conformal contactomorphisms always preserve contact structure
             // (by definition φ*α = f·α, and f ≠ 0)
-            return self.conformal_factor.map_or(false, |f| f.abs() > 1e-12);
+            return self.conformal_factor.is_some_and(|f| f.abs() > 1e-12);
         }
         // For the identity map in Darboux coords, always true
         // More generally, verify Jᵀ · α(p') = α(p)

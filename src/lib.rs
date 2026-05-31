@@ -1,3 +1,4 @@
+#![deny(unsafe_code)]
 //! # lau-contact-geometry
 //!
 //! Contact geometry — the odd-dimensional cousin of symplectic geometry.

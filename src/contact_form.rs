@@ -18,7 +18,7 @@ pub struct ContactForm {
 impl ContactForm {
     /// Create a new contact form on a (2n+1)-dimensional manifold.
     pub fn new(dim: usize) -> Result<Self, String> {
-        if dim < 3 || dim % 2 == 0 {
+        if dim < 3 || dim.is_multiple_of(2) {
             return Err(format!(
                 "Contact manifold dimension must be odd and ≥ 3, got {}",
                 dim
